@@ -6,6 +6,7 @@
       "username": "Bret",
       "email": "Sincere@april.biz",
       "avatar": "https://gravatar.com/avatar/ee249a4c2a7b4c660a0df082556e2924?s=400&d=robohash&r=x",
+      "subscription": "65.00",
       "address": {
         "street": "Kulas Light",
         "suite": "Apt. 556",
@@ -30,6 +31,7 @@
       "username": "Antonette",
       "email": "Shanna@melissa.tv",
       "avatar": "https://robohash.org/c4d899dd13ba9e7790e62b36a471897b?set=set4&bgset=&size=400x400",
+      "subscription": "73.00",
       "address": {
         "street": "Victor Plains",
         "suite": "Suite 879",
@@ -54,6 +56,7 @@
       "username": "Samantha",
       "email": "Nathan@yesenia.net",
       "avatar": "https://robohash.org/1c98b5d494a54c267dcf3c3720b2dbb5?set=set4&bgset=&size=400x400",
+      "subscription": "120.00",
       "address": {
         "street": "Douglas Extension",
         "suite": "Suite 847",
@@ -78,6 +81,7 @@
       "username": "Karianne",
       "email": "Julianne.OConner@kory.org",
       "avatar": "https://gravatar.com/avatar/1c98b5d494a54c267dcf3c3720b2dbb5?s=400&d=robohash&r=x",
+      "subscription": "43.00",
       "address": {
         "street": "Hoeger Mall",
         "suite": "Apt. 692",
@@ -102,6 +106,7 @@
       "username": "Kamren",
       "email": "Lucio_Hettinger@annie.ca",
       "avatar": "https://gravatar.com/avatar/02a95fcbf1070f46210e213e9bc270b0?s=400&d=robohash&r=x",
+      "subscription": "56.00",
       "address": {
         "street": "Skiles Walks",
         "suite": "Suite 351",
@@ -126,6 +131,7 @@
       "username": "Leopoldo_Corkery",
       "email": "Karley_Dach@jasper.info",
       "avatar": "https://robohash.org/02a95fcbf1070f46210e213e9bc270b0?set=set4&bgset=&size=400x400",
+      "subscription": "83.00",
       "address": {
         "street": "Norberto Crossing",
         "suite": "Apt. 950",
@@ -150,6 +156,7 @@
       "username": "Elwyn.Skiles",
       "email": "Telly.Hoeger@billy.biz",
       "avatar": "https://gravatar.com/avatar/daa9a637e76c9ee66b1fba9bccf8b1a8?s=400&d=robohash&r=x",
+      "subscription": "98.00",
       "address": {
         "street": "Rex Trail",
         "suite": "Suite 280",
@@ -174,6 +181,7 @@
       "username": "Maxime_Nienow",
       "email": "Sherwood@rosamond.me",
       "avatar": "https://robohash.org/e3a16d03486da7c5bd9c8c0cba842e76?set=set4&bgset=&size=400x400",
+      "subscription": "113.00",
       "address": {
         "street": "Ellsworth Summit",
         "suite": "Suite 729",
@@ -198,6 +206,7 @@
       "username": "Delphine",
       "email": "Chaim_McDermott@dana.io",
       "avatar": "https://gravatar.com/avatar/7e92dbb559bd1ff16e9872ec7f5aec9c?s=400&d=robohash&r=x",
+      "subscription": "22.00",
       "address": {
         "street": "Dayna Park",
         "suite": "Suite 449",
@@ -222,6 +231,7 @@
       "username": "Moriah.Stanton",
       "email": "Rey.Padberg@karina.biz",
       "avatar": "https://robohash.org/78393cd595a76949274534b51d0d9626?set=set4&bgset=&size=400x400",
+      "subscription": "45.00",
       "address": {
         "street": "Kattie Turnpike",
         "suite": "Suite 198",
@@ -244,6 +254,7 @@
   "games": [
     {
       "id": 540,
+      "customer_id": 1,
       "title": "Overwatch 2",
       "thumbnail": "https://www.freetogame.com/g/540/thumbnail.jpg",
       "short_description": "A hero-focused first-person team shooter from Blizzard Entertainment.",
@@ -258,6 +269,7 @@
     {
       "id": 516,
       "title": "PUBG: BATTLEGROUNDS",
+      "customer_id": 2,
       "thumbnail": "https://www.freetogame.com/g/516/thumbnail.jpg",
       "short_description": "Get into the action in one of the longest running battle royale games PUBG Battlegrounds.",
       "game_url": "https://www.freetogame.com/open/pubg",
@@ -271,6 +283,7 @@
     {
       "id": 508,
       "title": "Enlisted",
+      "customer_id": 1,
       "thumbnail": "https://www.freetogame.com/g/508/thumbnail.jpg",
       "short_description": "Get ready to command your own World War II military squad in Gaijin and Darkflow Software’s MMO squad-based shooter Enlisted. ",
       "game_url": "https://www.freetogame.com/open/enlisted",
@@ -284,6 +297,7 @@
     {
       "id": 380,
       "title": "Dark Orbit Reloaded",
+      "customer_id": 2,
       "thumbnail": "https://www.freetogame.com/g/380/thumbnail.jpg",
       "short_description": "A browser-based 3D space-combat MMO with a massive playerbase!",
       "game_url": "https://www.freetogame.com/open/darkorbit",
@@ -297,6 +311,7 @@
     {
       "id": 515,
       "title": "Halo Infinite",
+      "customer_id": 3,
       "thumbnail": "https://www.freetogame.com/g/515/thumbnail.jpg",
       "short_description": "For the first time ever, a free-to-play Halo experience is available in the form of Halo Infinite’s multiplayer.",
       "game_url": "https://www.freetogame.com/open/halo-infinite",
@@ -310,6 +325,7 @@
     {
       "id": 5,
       "title": "Crossout",
+      "customer_id": 4,
       "thumbnail": "https://www.freetogame.com/g/5/thumbnail.jpg",
       "short_description": "A post-apocalyptic MMO vehicle combat game! ",
       "game_url": "https://www.freetogame.com/open/crossout",
@@ -323,6 +339,7 @@
     {
       "id": 9,
       "title": "World of Warships",
+      "customer_id": 4,
       "thumbnail": "https://www.freetogame.com/g/9/thumbnail.jpg",
       "short_description": "A 3D free to play naval action-themed MMO from the creators of World of Tanks! ",
       "game_url": "https://www.freetogame.com/open/world-of-warships",
@@ -336,6 +353,7 @@
     {
       "id": 12,
       "title": "War Thunder",
+      "customer_id": 5,
       "thumbnail": "https://www.freetogame.com/g/12/thumbnail.jpg",
       "short_description": "A MMO shooter that puts you in command of hundreds of the finest combat vehicles of World War II.",
       "game_url": "https://www.freetogame.com/open/war-thunder",
@@ -349,6 +367,7 @@
     {
       "id": 2,
       "title": "World of Tanks",
+      "customer_id": 5,
       "thumbnail": "https://www.freetogame.com/g/2/thumbnail.jpg",
       "short_description": "If you like blowing up tanks, with a quick and intense game style you will love this game!",
       "game_url": "https://www.freetogame.com/open/world-of-tanks",
@@ -362,6 +381,7 @@
     {
       "id": 466,
       "title": "Valorant",
+      "customer_id": 6,
       "thumbnail": "https://www.freetogame.com/g/466/thumbnail.jpg",
       "short_description": "Test your mettle in Riot Games’ character-based FPS shooter Valorant.",
       "game_url": "https://www.freetogame.com/open/valorant",
@@ -375,6 +395,7 @@
     {
       "id": 452,
       "title": "Call Of Duty: Warzone",
+      "customer_id": 6,
       "thumbnail": "https://www.freetogame.com/g/452/thumbnail.jpg",
       "short_description": "A standalone free-to-play battle royale and modes accessible via Call of Duty: Modern Warfare.",
       "game_url": "https://www.freetogame.com/open/call-of-duty-warzone",
@@ -388,6 +409,7 @@
     {
       "id": 21,
       "title": "Destiny 2",
+      "customer_id": 7,
       "thumbnail": "https://www.freetogame.com/g/21/thumbnail.jpg",
       "short_description": "A free-to-play multiplayer Sci-Fi MMOFPS from Bungie.",
       "game_url": "https://www.freetogame.com/open/destiny-2",
@@ -401,6 +423,7 @@
     {
       "id": 23,
       "title": "Apex Legends",
+      "customer_id": 8,
       "thumbnail": "https://www.freetogame.com/g/23/thumbnail.jpg",
       "short_description": "A free-to-play strategic battle royale game featuring 60-player matches and team-based play. ",
       "game_url": "https://www.freetogame.com/open/apex-legends",
@@ -414,6 +437,7 @@
     {
       "id": 57,
       "title": "Fortnite",
+      "customer_id": 10,
       "thumbnail": "https://www.freetogame.com/g/57/thumbnail.jpg",
       "short_description": "A free-to-play, standalone mode of Epic Game's Fortnite. ",
       "game_url": "https://www.freetogame.com/open/fortnite-battle-royale",
@@ -427,6 +451,7 @@
     {
       "id": 202,
       "title": "Heroes & Generals",
+      "customer_id": 9,
       "thumbnail": "https://www.freetogame.com/g/202/thumbnail.jpg",
       "short_description": "A World War II-based MMOFPS that mixes infantry, armor, and aircraft.",
       "game_url": "https://www.freetogame.com/open/heroes-and-generals",
@@ -440,6 +465,7 @@
     {
       "id": 207,
       "title": "Warface",
+      "customer_id": 9,
       "thumbnail": "https://www.freetogame.com/g/207/thumbnail.jpg",
       "short_description": "A free-to-play multiplayer online FPS from Crytek, makers of the Far Cry and Crysis series of games.",
       "game_url": "https://www.freetogame.com/open/warface",
@@ -453,6 +479,7 @@
     {
       "id": 3,
       "title": "Warframe",
+      "customer_id": 10,
       "thumbnail": "https://www.freetogame.com/g/3/thumbnail.jpg",
       "short_description": "A cooperative free-to-play third person online action shooter set in an stunning sci-fi world. ",
       "game_url": "https://www.freetogame.com/open/warframe",
@@ -466,6 +493,7 @@
     {
       "id": 243,
       "title": "PlanetSide 2",
+      "customer_id": 8,
       "thumbnail": "https://www.freetogame.com/g/243/thumbnail.jpg",
       "short_description": "A free-to-play open-world FPS that pits three factions against each other in a never-ending war.",
       "game_url": "https://www.freetogame.com/open/planetside-2",
@@ -479,6 +507,7 @@
     {
       "id": 548,
       "title": "Dead Cide Club",
+      "customer_id": 6,
       "thumbnail": "https://www.freetogame.com/g/548/thumbnail.jpg",
       "short_description": "A free-to-play, side-scrolling shooter with a variety of modes and character types to choose from.",
       "game_url": "https://www.freetogame.com/open/dead-cide-club",

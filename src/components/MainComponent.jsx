@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo } from "react";
 import DashboardTitle from "../elements/DashboardTitle";
-import { dashboardSummery } from "../constant";
 import SummeryCard from "../elements/SummeryCard";
 import SummeryBorder from "../elements/SummeryBorder";
 import TableComponent from "./TableComponent";
@@ -8,8 +7,8 @@ import TableComponent from "./TableComponent";
 const MainComponent = (props) => {
   const tableComponent = useMemo(() => {
     if (
-      props.selectedMenuItem === "Clients" ||
-      props.selectedMenuItem === "Games"
+      props.tableData.userData.length > 0 &&
+      props.tableData.gameData.length > 0
     ) {
       return (
         <TableComponent
@@ -21,12 +20,17 @@ const MainComponent = (props) => {
       return <></>;
     }
   }, [props.tableData, props.selectedMenuItem]);
-  return (
-    <div className="main-container">
-      <DashboardTitle title={props.selectedMenuItem} />
-      <SummeryBorder summery={props.selectedMenuItem} />
+
+  const summeryCard = useMemo(() => {
+    const summeryCardArray =
+      props.selectedMenuItem === "Games"
+        ? props.game_Summery
+        : props.selectedMenuItem === "Dashboard"
+        ? props.dashSummery
+        : props.customerSummery;
+    return (
       <div className="sumery-section">
-        {dashboardSummery.map((item) => {
+        {summeryCardArray.map((item) => {
           return (
             <React.Fragment key={item.id}>
               <SummeryCard {...item} />
@@ -34,6 +38,19 @@ const MainComponent = (props) => {
           );
         })}
       </div>
+    );
+  }, [
+    props.selectedMenuItem,
+    props.game_Summery,
+    props.dashSummery,
+    props.customerSummery,
+  ]);
+
+  return (
+    <div className="main-container">
+      <DashboardTitle title={props.selectedMenuItem} />
+      <SummeryBorder summery={`${props.selectedMenuItem} Summery`} />
+      {summeryCard}
       {tableComponent}
     </div>
   );

@@ -8,7 +8,7 @@ const SummeryBorder = (props) => {
         <div style={{ color: "#fff" }}>
           <Summery />
         </div>
-        <div className="summery-title">{`${props.summery} Summery`}</div>
+        <div className="summery-title">{`${props.summery}`}</div>
       </div>
     </React.Fragment>
   );

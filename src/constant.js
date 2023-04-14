@@ -8,6 +8,8 @@ import { coinDollar } from "react-icons-kit/icomoon/coinDollar";
 import { statsBars2 } from "react-icons-kit/icomoon/statsBars2";
 import { bin } from "react-icons-kit/icomoon/bin";
 import { plus } from "react-icons-kit/icomoon/plus";
+import { ic_category_twotone } from "react-icons-kit/md/ic_category_twotone";
+import { ic_close } from "react-icons-kit/md/ic_close";
 
 export const IconHome = () => <Icon icon={home} size={32} />;
 export const Clients = () => <Icon icon={users} size={32} />;
@@ -18,6 +20,8 @@ export const Revenue = () => <Icon icon={coinDollar} size={32} />;
 export const Summery = () => <Icon icon={statsBars2} size={32} />;
 export const Delete = () => <Icon icon={bin} size={16} />;
 export const Plus = () => <Icon icon={plus} size={16} />;
+export const Category = () => <Icon icon={ic_category_twotone} size={32} />;
+export const Close = () => <Icon icon={ic_close} size={32} />;
 
 export const menuItemsArray = [
   { icon: <IconHome />, displayName: "Dashboard", id: "1", isActive: true },
@@ -28,7 +32,7 @@ export const menuItemsArray = [
 export const dashboardSummery = [
   {
     value: 0,
-    title: "Total Games",
+    title: "Subscribed Games",
     icon: <Total />,
     color: "#0e9f6e",
     backgroundColor: "rgba(14,159,110,0.2)",
@@ -36,7 +40,7 @@ export const dashboardSummery = [
   },
   {
     value: 0,
-    title: "Total Customers",
+    title: "Subscribed Customers",
     icon: <Clients />,
     color: "#ff5a1f",
     backgroundColor: "rgba(255,90,31,0.2)",
@@ -44,11 +48,49 @@ export const dashboardSummery = [
   },
   {
     value: 0,
-    title: "Total Revenue",
+    title: "Total Subscription",
     icon: <Revenue />,
     color: "#3f83f8",
     backgroundColor: "rgba(63,131,248,0.2)",
     id: 3,
+  },
+];
+
+export const custSummery = [
+  {
+    value: 0,
+    title: "Total Customers",
+    icon: <Total />,
+    color: "#0e9f6e",
+    backgroundColor: "rgba(14,159,110,0.2)",
+    id: 1,
+  },
+  {
+    value: 0,
+    title: "Total Revenue",
+    icon: <Revenue />,
+    color: "#3f83f8",
+    backgroundColor: "rgba(63,131,248,0.2)",
+    id: 2,
+  },
+];
+
+export const gameSummery = [
+  {
+    value: 0,
+    title: "Total Games",
+    icon: <Total />,
+    color: "#ff5a1f",
+    backgroundColor: "rgba(255,90,31,0.2)",
+    id: 1,
+  },
+  {
+    value: 0,
+    title: "Categories",
+    icon: <Category />,
+    color: "#3f83f8",
+    backgroundColor: "rgba(63,131,248,0.2)",
+    id: 2,
   },
 ];
 
@@ -85,7 +127,51 @@ export const customerColumns = [
     accessor: "cust-col3",
   },
   {
-    Header: "Action",
+    Header: "Subscription",
     accessor: "cust-col4",
   },
+  {
+    Header: "Action",
+    accessor: "cust-col5",
+  },
 ];
+export const dashboardColumns = [
+  {
+    Header: "Game",
+    accessor: "dash-col1", // accessor is the "key" in the data
+  },
+  {
+    Header: "Subscribe Customer",
+    accessor: "dash-col2",
+  },
+  {
+    Header: "Subscription",
+    accessor: "dash-col3",
+  },
+  {
+    Header: "Category",
+    accessor: "dash-col4",
+  },
+];
+
+export const customerData = {
+  id: "",
+  name: "",
+  subscription: "0",
+  email: "",
+  avatar: "",
+  address: {
+    street: "",
+    suite: "",
+    city: "",
+    zipcode: "",
+  },
+};
+
+export const gameData = {
+  id: "",
+  title: "",
+  thumbnail: "",
+  genre: "",
+  release_date: "",
+};

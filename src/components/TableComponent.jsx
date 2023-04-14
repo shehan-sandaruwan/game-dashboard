@@ -1,6 +1,6 @@
 import React from "react";
 import { useTable, usePagination } from "react-table";
-import { gameColumns, customerColumns } from "../constant";
+import { gameColumns, customerColumns, dashboardColumns } from "../constant";
 import ActionComponent from "./ActionComponent";
 import Avatar from "../elements/Avatar";
 
@@ -10,6 +10,8 @@ const TableComponent = (props) => {
       return [...customerColumns];
     } else if (props.selectedMenuItem === "Games") {
       return [...gameColumns];
+    } else {
+      return [...dashboardColumns];
     }
   }, [props.selectedMenuItem]);
 
@@ -27,7 +29,8 @@ const TableComponent = (props) => {
           "cust-col3": `${item.address?.street || ""}, ${
             item.address?.suite || ""
           }, ${item.address?.city || ""}, ${item.address?.zipcode || ""}`,
-          "cust-col4": <ActionComponent />,
+          "cust-col4": item.subscription,
+          "cust-col5": <ActionComponent />,
         };
       });
 
@@ -47,6 +50,39 @@ const TableComponent = (props) => {
         };
       });
       return gamesRow;
+    } else if (props.selectedMenuItem === "Dashboard") {
+      const gamesWithCustomer = props.tableData.gameData?.filter(
+        (item) => item.customer_id
+      );
+      const dashBoardData = [];
+
+      for (let i = 0; i < gamesWithCustomer.length; i++) {
+        const custObj = props.tableData.userData?.find(
+          (item) => item.id === gamesWithCustomer[i].customer_id
+        );
+        if (custObj) {
+          const dashboardObj = {
+            "dash-col1": (
+              <div className="game-name">
+                <Avatar avatar={gamesWithCustomer[i].thumbnail} />
+                {gamesWithCustomer[i].title} <span></span>
+              </div>
+            ),
+            "dash-col2": (
+              <div className="game-name">
+                <Avatar avatar={custObj.avatar} />
+                {custObj.name} <span></span>
+              </div>
+            ),
+            "dash-col3": custObj.subscription,
+            "dash-col4": gamesWithCustomer[i].genre,
+          };
+
+          dashBoardData.push(dashboardObj);
+        }
+      }
+
+      return dashBoardData;
     }
   }, [props.selectedMenuItem, props.tableData]);
 
