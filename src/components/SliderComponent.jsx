@@ -9,10 +9,15 @@ const SliderComponent = ({
   onClickHandler,
   selectedMenuItem,
   handleAddItem,
+  showMenuItem,
+  handleHamburgerClick,
 }) => {
   return (
     <React.Fragment>
-      <Slider>
+      <Slider
+        showMenuItem={showMenuItem}
+        handleHamburgerClick={handleHamburgerClick}
+      >
         <Logo />
         <ul className="menu-list">
           {menuItems.map((item) => {

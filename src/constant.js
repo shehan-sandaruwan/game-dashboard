@@ -10,6 +10,10 @@ import { bin } from "react-icons-kit/icomoon/bin";
 import { plus } from "react-icons-kit/icomoon/plus";
 import { ic_category_twotone } from "react-icons-kit/md/ic_category_twotone";
 import { ic_close } from "react-icons-kit/md/ic_close";
+import { ic_check_circle } from "react-icons-kit/md/ic_check_circle";
+import { ic_highlight_off_twotone } from "react-icons-kit/md/ic_highlight_off_twotone";
+import { ic_menu } from "react-icons-kit/md/ic_menu";
+import { ic_warning_twotone } from "react-icons-kit/md/ic_warning_twotone";
 
 export const IconHome = () => <Icon icon={home} size={32} />;
 export const Clients = () => <Icon icon={users} size={32} />;
@@ -22,6 +26,10 @@ export const Delete = () => <Icon icon={bin} size={16} />;
 export const Plus = () => <Icon icon={plus} size={16} />;
 export const Category = () => <Icon icon={ic_category_twotone} size={32} />;
 export const Close = () => <Icon icon={ic_close} size={32} />;
+export const Success = () => <Icon icon={ic_check_circle} size={16} />;
+export const Error = () => <Icon icon={ic_highlight_off_twotone} size={16} />;
+export const Menu = () => <Icon icon={ic_menu} size={32} />;
+export const Warning = () => <Icon icon={ic_warning_twotone} size={32} />;
 
 export const menuItemsArray = [
   { icon: <IconHome />, displayName: "Dashboard", id: "1", isActive: true },
@@ -127,7 +135,7 @@ export const customerColumns = [
     accessor: "cust-col3",
   },
   {
-    Header: "Subscription",
+    Header: "Subscription ($)",
     accessor: "cust-col4",
   },
   {
@@ -145,7 +153,7 @@ export const dashboardColumns = [
     accessor: "dash-col2",
   },
   {
-    Header: "Subscription",
+    Header: "Subscription ($)",
     accessor: "dash-col3",
   },
   {

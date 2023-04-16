@@ -1,6 +1,6 @@
 import React from "react";
 import SummeryBorder from "./SummeryBorder";
-import { Close } from "../constant";
+import { Close, Warning } from "../constant";
 
 const Modal = (props) => {
   return (
@@ -9,12 +9,14 @@ const Modal = (props) => {
         <div onClick={props.handleModalClose} className="close-btn">
           <Close />
         </div>
-        <SummeryBorder summery={props.selectedMenuItem} />
+        <SummeryBorder summery={props.selectedMenuItem} icon={props.icon} />
+        {props.action === "delete" && (
+          <div className="delete-warning">
+            <Warning />
+            <span>Are you Sure You want to delete this Item ?</span>
+          </div>
+        )}
         <div>{props.children}</div>
-        <div className="modal-footer">
-          <hr></hr>
-          <button>{props.action || "Add"}</button>
-        </div>
       </div>
     </div>
   );

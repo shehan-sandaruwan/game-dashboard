@@ -4,7 +4,7 @@ import { Search } from "../constant";
 const SearchForm = (props) => {
   const onSubmitSearch = (event) => {};
   return (
-    <div class="search-container">
+    <div className="search-container">
       <form onSubmit={onSubmitSearch}>
         <input
           type="text"

@@ -3,6 +3,7 @@ import DashboardTitle from "../elements/DashboardTitle";
 import SummeryCard from "../elements/SummeryCard";
 import SummeryBorder from "../elements/SummeryBorder";
 import TableComponent from "./TableComponent";
+import { Summery } from "../constant";
 
 const MainComponent = (props) => {
   const tableComponent = useMemo(() => {
@@ -14,6 +15,7 @@ const MainComponent = (props) => {
         <TableComponent
           tableData={props.tableData}
           selectedMenuItem={props.selectedMenuItem}
+          onEditItem={props.onEditItem}
         />
       );
     } else {
@@ -49,7 +51,10 @@ const MainComponent = (props) => {
   return (
     <div className="main-container">
       <DashboardTitle title={props.selectedMenuItem} />
-      <SummeryBorder summery={`${props.selectedMenuItem} Summery`} />
+      <SummeryBorder
+        summery={`${props.selectedMenuItem} Summery`}
+        icon={<Summery />}
+      />
       {summeryCard}
       {tableComponent}
     </div>

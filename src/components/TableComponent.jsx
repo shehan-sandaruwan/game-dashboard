@@ -30,7 +30,9 @@ const TableComponent = (props) => {
             item.address?.suite || ""
           }, ${item.address?.city || ""}, ${item.address?.zipcode || ""}`,
           "cust-col4": item.subscription,
-          "cust-col5": <ActionComponent />,
+          "cust-col5": (
+            <ActionComponent onEditItem={props.onEditItem} rowItem={item} />
+          ),
         };
       });
 
@@ -46,7 +48,9 @@ const TableComponent = (props) => {
           ),
           "game-col2": item.genre,
           "game-col3": item.release_date,
-          "game-col4": <ActionComponent />,
+          "game-col4": (
+            <ActionComponent onEditItem={props.onEditItem} rowItem={item} />
+          ),
         };
       });
       return gamesRow;
@@ -112,31 +116,35 @@ const TableComponent = (props) => {
 
   return (
     <React.Fragment>
-      <table {...getTableProps()} className="tabel-container">
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
+      <div className="table-wrapper">
+        <table {...getTableProps()} className="tabel-container">
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       <div className="pagination">
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>
           {"<"}
