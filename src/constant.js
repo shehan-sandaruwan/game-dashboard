@@ -14,6 +14,8 @@ import { ic_check_circle } from "react-icons-kit/md/ic_check_circle";
 import { ic_highlight_off_twotone } from "react-icons-kit/md/ic_highlight_off_twotone";
 import { ic_menu } from "react-icons-kit/md/ic_menu";
 import { ic_warning_twotone } from "react-icons-kit/md/ic_warning_twotone";
+import { ic_keyboard_arrow_right } from "react-icons-kit/md/ic_keyboard_arrow_right";
+import { ic_keyboard_arrow_down } from "react-icons-kit/md/ic_keyboard_arrow_down";
 
 export const IconHome = () => <Icon icon={home} size={32} />;
 export const Clients = () => <Icon icon={users} size={32} />;
@@ -30,6 +32,10 @@ export const Success = () => <Icon icon={ic_check_circle} size={16} />;
 export const Error = () => <Icon icon={ic_highlight_off_twotone} size={16} />;
 export const Menu = () => <Icon icon={ic_menu} size={32} />;
 export const Warning = () => <Icon icon={ic_warning_twotone} size={32} />;
+export const ArrowRight = () => (
+  <Icon icon={ic_keyboard_arrow_right} size={32} />
+);
+export const ArrowDown = () => <Icon icon={ic_keyboard_arrow_down} size={32} />;
 
 export const menuItemsArray = [
   { icon: <IconHome />, displayName: "Dashboard", id: "1", isActive: true },

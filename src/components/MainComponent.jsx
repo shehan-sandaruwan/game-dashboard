@@ -16,12 +16,13 @@ const MainComponent = (props) => {
           tableData={props.tableData}
           selectedMenuItem={props.selectedMenuItem}
           onEditItem={props.onEditItem}
+          tableFilterData={props.tableFilterData}
         />
       );
     } else {
       return <></>;
     }
-  }, [props.tableData, props.selectedMenuItem]);
+  }, [props.tableData, props.selectedMenuItem, props.tableFilterData]);
 
   const summeryCard = useMemo(() => {
     const summeryCardArray =

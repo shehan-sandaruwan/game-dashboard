@@ -18,6 +18,7 @@ import AddGameFormComponent from "./components/AddGameFormComponent";
 import { Clients, Games, Success, Error } from "./constant";
 import { fileUploader } from "./firebaseFileUploader";
 import { v4 as uuidv4 } from "uuid";
+import ToastComponent from "./components/ToastComponent";
 
 function App() {
   const [tableData, setTableData] = useState({ userData: [], gameData: [] });
@@ -35,7 +36,15 @@ function App() {
   const [progress, setProgress] = useState(-2);
   const [error, setError] = useState("");
   const [showMenuItem, setShowMenuItem] = useState(false);
-  const [action, setAction] = useState("");
+  const [toastConfig, setToastConfig] = useState({
+    status: "",
+    message: "",
+  });
+
+  const [tableFilterData, setTableFilterData] = useState({
+    category: [],
+    dates: [],
+  });
 
   useEffect(() => {
     fetchTableData();
@@ -78,7 +87,7 @@ function App() {
   const fileDownLoadUrl = (url) => {
     const event = {
       target: {
-        name: selectedMenuItem === "Client" ? "avatar" : "thumbnail",
+        name: selectedMenuItem === "Clients" ? "avatar" : "thumbnail",
         value: url,
       },
     };
@@ -93,6 +102,7 @@ function App() {
       0
     );
     const categories = [];
+    const years = [];
     const subscribedCustomers = [];
     let subscribeAmount = 0;
     let suscribedGame = 0;
@@ -109,6 +119,16 @@ function App() {
       if (item.customer_id) {
         suscribedGame++;
       }
+
+      const year = item.release_date?.split("-")[0];
+      if (year && !years.includes(year)) {
+        years.push(year);
+      }
+    });
+
+    setTableFilterData({
+      dates: years,
+      category: categories,
     });
     const totalCustomers = dataObject.userData.length;
 
@@ -198,31 +218,47 @@ function App() {
     }
   };
 
+  // This event handler uses to handle add, edit, delete events.
   const handleSubmitForm = (action) => {
     if (action === "edit" || action === "delete") {
-      rowActionandler();
+      rowActionandler(action);
     } else {
-      if (selectedMenuItem === "Clients") {
-        newCustomerData.id = uuidv4();
-        newCustomerData.isEdited = true;
-        const newData = [newCustomerData, ...tableData.userData];
-        setTableData({
-          ...tableData,
-          userData: newData,
+      try {
+        if (selectedMenuItem === "Clients") {
+          newCustomerData.id = uuidv4();
+          newCustomerData.isEdited = true;
+          const newData = [newCustomerData, ...tableData.userData];
+          setTableData({
+            ...tableData,
+            userData: newData,
+          });
+        } else {
+          newGameData.id = uuidv4();
+          newGameData.isEdited = true;
+          const newData = [newGameData, ...tableData.gameData];
+          setTableData({
+            ...tableData,
+            gameData: newData,
+          });
+        }
+        handleModalClose();
+        setToastConfig({
+          status: "success",
+          message: "Added successfully!",
         });
-      } else {
-        newGameData.id = uuidv4();
-        newGameData.isEdited = true;
-        const newData = [newGameData, ...tableData.gameData];
-        setTableData({
-          ...tableData,
-          gameData: newData,
+      } catch (error) {
+        handleModalClose();
+        setToastConfig({
+          status: "error",
+          message: "Error in Adding Item!",
         });
       }
     }
   };
 
   const handleAddItem = (item) => {
+    setNewCustomerData(customerData);
+    setNewGameData(gameData);
     setOpenModal({
       open: true,
       action: "add",
@@ -274,53 +310,79 @@ function App() {
     });
   };
 
-  const rowActionandler = useCallback(() => {
-    if (action === "edit") {
-      if (selectedMenuItem === "Clients") {
-        const modifiedClientData = tableData.userData.map((client) => {
-          if (client.id === newCustomerData.id) {
-            newCustomerData.isEdited = true;
-            return newCustomerData;
-          }
-          return client;
-        });
+  const rowActionandler = useCallback((_action) => {
+    if (_action === "edit") {
+      try {
+        if (selectedMenuItem === "Clients") {
+          const modifiedClientData = tableData.userData.map((client) => {
+            if (client.id === newCustomerData.id) {
+              newCustomerData.isEdited = true;
+              return newCustomerData;
+            }
+            return client;
+          });
 
-        setTableData({
-          ...tableData,
-          userData: modifiedClientData,
-        });
-      } else {
-        const modifiedGameData = tableData.gameData.map((game) => {
-          if (game.id === newGameData.id) {
-            newGameData.isEdited = true;
-            return newGameData;
-          }
-          return game;
-        });
+          setTableData({
+            ...tableData,
+            userData: modifiedClientData,
+          });
+        } else {
+          const modifiedGameData = tableData.gameData.map((game) => {
+            if (game.id === newGameData.id) {
+              newGameData.isEdited = true;
+              return newGameData;
+            }
+            return game;
+          });
 
-        setTableData({
-          ...tableData,
-          gameData: modifiedGameData,
+          setTableData({
+            ...tableData,
+            gameData: modifiedGameData,
+          });
+        }
+        handleModalClose();
+        setToastConfig({
+          status: "success",
+          message: "Edited successfully!",
+        });
+      } catch (error) {
+        handleModalClose();
+        setToastConfig({
+          status: "error",
+          message: "Error in Edit",
         });
       }
     } else {
-      if (selectedMenuItem === "Clients") {
-        const modifiedClientData = tableData.userData.filter(
-          (client) => client.id !== newCustomerData.id
-        );
+      try {
+        if (selectedMenuItem === "Clients") {
+          const modifiedClientData = tableData.userData.filter(
+            (client) => client.id !== newCustomerData.id
+          );
 
-        setTableData({
-          ...tableData,
-          userData: modifiedClientData,
+          setTableData({
+            ...tableData,
+            userData: modifiedClientData,
+          });
+        } else {
+          const modifiedGameData = tableData.gameData.filter(
+            (game) => game.id !== newGameData.id
+          );
+
+          setTableData({
+            ...tableData,
+            gameData: modifiedGameData,
+          });
+        }
+        handleModalClose();
+        setToastConfig({
+          status: "success",
+          message: "Delete successfully!",
         });
-      } else {
-        const modifiedGameData = tableData.gameData.filter(
-          (game) => game.id !== newGameData.id
-        );
-
-        setTableData({
-          ...tableData,
-          gameData: modifiedGameData,
+      } catch (error) {
+        handleModalClose();
+        setToastConfig({
+          status: "error",
+          message: "Errorin Delete!",
         });
       }
     }
@@ -328,14 +390,14 @@ function App() {
 
   const modal = useMemo(() => {
     if (openModal.open) {
-      if (selectedMenuItem === "Clients") {
-        return (
-          <Modal
-            handleModalClose={handleModalClose}
-            selectedMenuItem={selectedMenuItem}
-            icon={<Clients />}
-            action={openModal.action}
-          >
+      return (
+        <Modal
+          handleModalClose={handleModalClose}
+          selectedMenuItem={selectedMenuItem}
+          icon={selectedMenuItem === "Clients" ? <Clients /> : <Games />}
+          action={openModal.action}
+        >
+          {selectedMenuItem === "Clients" ? (
             <AddClientFormComponent
               onChangeHandler={onChangeInputHandler}
               onFileUpload={onFileUpload}
@@ -345,16 +407,7 @@ function App() {
               handleSubmitForm={handleSubmitForm}
               action={openModal.action}
             />
-          </Modal>
-        );
-      } else if (selectedMenuItem === "Games") {
-        return (
-          <Modal
-            handleModalClose={handleModalClose}
-            selectedMenuItem={selectedMenuItem}
-            icon={<Games />}
-            action={openModal.action}
-          >
+          ) : (
             <AddGameFormComponent
               onChangeHandler={onChangeInputHandler}
               onFileUpload={onFileUpload}
@@ -364,16 +417,15 @@ function App() {
               handleSubmitForm={handleSubmitForm}
               action={openModal.action}
             />
-          </Modal>
-        );
-      } else {
-        return <></>;
-      }
+          )}
+        </Modal>
+      );
     }
   });
 
   return (
     <React.Fragment>
+      <ToastComponent toastConfig={toastConfig} />
       {modal}
       <div className="App">
         <SliderComponent
@@ -388,6 +440,7 @@ function App() {
           <NavbarComponent handleHamburgerClick={handleHamburgerClick} />
           <MainComponent
             tableData={tableData}
+            tableFilterData={tableFilterData}
             selectedMenuItem={selectedMenuItem}
             game_Summery={game_Summery}
             customerSummery={customerSummery}

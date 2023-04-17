@@ -1,10 +1,44 @@
-import React from "react";
-import { useTable, usePagination } from "react-table";
-import { gameColumns, customerColumns, dashboardColumns } from "../constant";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  useTable,
+  usePagination,
+  useSortBy,
+  useAsyncDebounce,
+} from "react-table";
+import {
+  gameColumns,
+  customerColumns,
+  dashboardColumns,
+  ArrowDown,
+  ArrowRight,
+} from "../constant";
 import ActionComponent from "./ActionComponent";
 import Avatar from "../elements/Avatar";
+import FilterComponent from "./FilterComponent";
 
 const TableComponent = (props) => {
+  const [showFilterOption, setShowFilterOption] = useState(false);
+  const [value, setValue] = useState({
+    name: [],
+    min: "",
+    max: "",
+    date: "",
+    category: "",
+    address: "",
+  });
+
+  const [localTableData, setLocalTableData] = useState({
+    userData: [],
+    gameData: [],
+  });
+
+  useEffect(() => {
+    setLocalTableData({
+      userData: props.tableData.userData,
+      gameData: props.tableData.gameData,
+    });
+  }, [props.tableData]);
+
   const columns = React.useMemo(() => {
     if (props.selectedMenuItem === "Clients") {
       return [...customerColumns];
@@ -17,7 +51,7 @@ const TableComponent = (props) => {
 
   const data = React.useMemo(() => {
     if (props.selectedMenuItem === "Clients") {
-      const clientRows = props.tableData.userData?.map((item) => {
+      const clientRows = localTableData.userData?.map((item) => {
         return {
           "cust-col1": (
             <div className="game-name">
@@ -38,7 +72,7 @@ const TableComponent = (props) => {
 
       return clientRows;
     } else if (props.selectedMenuItem === "Games") {
-      const gamesRow = props.tableData.gameData?.map((item) => {
+      const gamesRow = localTableData.gameData?.map((item) => {
         return {
           "game-col1": (
             <div className="game-name">
@@ -55,13 +89,13 @@ const TableComponent = (props) => {
       });
       return gamesRow;
     } else if (props.selectedMenuItem === "Dashboard") {
-      const gamesWithCustomer = props.tableData.gameData?.filter(
+      const gamesWithCustomer = localTableData.gameData?.filter(
         (item) => item.customer_id
       );
       const dashBoardData = [];
 
       for (let i = 0; i < gamesWithCustomer.length; i++) {
-        const custObj = props.tableData.userData?.find(
+        const custObj = localTableData.userData?.find(
           (item) => item.id === gamesWithCustomer[i].customer_id
         );
         if (custObj) {
@@ -75,7 +109,7 @@ const TableComponent = (props) => {
             "dash-col2": (
               <div className="game-name">
                 <Avatar avatar={custObj.avatar} />
-                {custObj.name} <span></span>
+                <span> {custObj.name}</span>
               </div>
             ),
             "dash-col3": custObj.subscription,
@@ -87,42 +121,124 @@ const TableComponent = (props) => {
       }
 
       return dashBoardData;
+    } else {
     }
-  }, [props.selectedMenuItem, props.tableData]);
+  }, [props.selectedMenuItem, localTableData]);
 
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     prepareRow,
-
-    page, // Instead of using 'rows', we'll use page,
-    // which has only the rows for the active page
-
-    // The rest of these things are super handy, too ;)
+    page,
     canPreviousPage,
     canNextPage,
     pageOptions,
-    pageCount,
-    gotoPage,
     nextPage,
     previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize },
+    state,
   } = useTable(
     { columns, data, initialState: { pageIndex: 0 } },
+    useSortBy,
     usePagination
   );
+
+  const filterTableData = useCallback(() => {
+    let filterUserData = localTableData.userData;
+    let filterGameData = localTableData.gameData;
+    if (value.name.includes("address")) {
+      filterUserData = filterUserData.filter(
+        (item) =>
+          item.address.street.includes(value.address) ||
+          item.address.suite.includes(value.address) ||
+          item.address.city.includes(value.address) ||
+          item.address.zipcode.includes(value.address)
+      );
+    }
+
+    if (value.name.includes("category")) {
+      filterGameData = filterGameData.filter(
+        (item) => item.genre?.toLowerCase() === value.category.toLowerCase()
+      );
+    }
+
+    if (value.name.includes("date")) {
+      filterGameData = filterGameData.filter(
+        (item) => item.release_date.split("-")[0] === value.date
+      );
+    }
+
+    if (value.name.includes("min") && value.name.includes("max")) {
+      filterUserData = filterUserData.filter(
+        (item) =>
+          Number(item.subscription) >= Number(value.min) &&
+          Number(item.subscription) <= Number(value.max)
+      );
+    } else if (value.name.includes("min")) {
+      filterUserData = filterUserData.filter(
+        (item) => Number(item.subscription) >= Number(value.min)
+      );
+    } else if (value.name.includes("max")) {
+      filterUserData = filterUserData.filter(
+        (item) => Number(item.subscription) <= Number(value.max)
+      );
+    }
+
+    setLocalTableData({
+      userData: filterUserData,
+      gameData: filterGameData,
+    });
+
+    setShowFilterOption(false);
+    setValue({
+      name: [],
+      min: "",
+      max: "",
+      date: "",
+      category: "",
+      address: "",
+    });
+  }, [value, localTableData]);
+
+  const onClickFilterOptions = () => {
+    setLocalTableData({
+      userData: props.tableData.userData,
+      gameData: props.tableData.gameData,
+    });
+    setShowFilterOption(!showFilterOption);
+  };
 
   return (
     <React.Fragment>
       <div className="table-wrapper">
-        <table {...getTableProps()} className="tabel-container">
+        <button className="filter-option" onClick={onClickFilterOptions}>
+          <div className="btn-inner-wrapper">
+            <span>Filter Options</span>
+            {showFilterOption ? <ArrowDown /> : <ArrowRight />}
+          </div>
+        </button>
+        {showFilterOption && (
+          <FilterComponent
+            selectedMenuItem={props.selectedMenuItem}
+            useAsyncDebounce={useAsyncDebounce}
+            dates={props.tableFilterData.dates}
+            category={props.tableFilterData.category}
+            value={value}
+            setValue={setValue}
+            filterTableData={filterTableData}
+          />
+        )}
+
+        <table
+          {...getTableProps()}
+          className="tabel-container"
+          data-filter={showFilterOption ? "show" : "hide"}
+        >
           <thead>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                     {column.render("Header")}
                   </th>
                 ))}
@@ -130,18 +246,24 @@ const TableComponent = (props) => {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {page.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
-                    return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
+            {page.length > 0 ? (
+              page.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      );
+                    })}
+                  </tr>
+                );
+              })
+            ) : (
+              <tr className="no-data">
+                <td colSpan={columns.length?.toString()}>No Data Available!</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
@@ -155,7 +277,7 @@ const TableComponent = (props) => {
         <span>
           Page
           <strong>
-            {pageIndex + 1} of {pageOptions.length}
+            {state.pageIndex + 1} of {pageOptions.length}
           </strong>
         </span>
       </div>
