@@ -3,6 +3,7 @@ import Slider from "../elements/Slider";
 import Logo from "../elements/Logo";
 import MenuItem from "../elements/MenuItem";
 import AddButton from "../elements/AddButton";
+import PropTypes from "prop-types";
 
 const SliderComponent = ({
   menuItems,
@@ -42,6 +43,15 @@ const SliderComponent = ({
       </Slider>
     </React.Fragment>
   );
+};
+
+SliderComponent.prototype = {
+  menuItems: PropTypes.array.isRequired,
+  onClickHandler: PropTypes.func.isRequired,
+  selectedMenuItem: PropTypes.string.isRequired,
+  handleAddItem: PropTypes.func,
+  showMenuItem: PropTypes.bool,
+  handleHamburgerClick: PropTypes.func,
 };
 
 export default SliderComponent;

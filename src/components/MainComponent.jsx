@@ -4,33 +4,39 @@ import SummeryCard from "../elements/SummeryCard";
 import SummeryBorder from "../elements/SummeryBorder";
 import TableComponent from "./TableComponent";
 import { Summery } from "../constant";
+import PropTypes from "prop-types";
 
-const MainComponent = (props) => {
+const MainComponent = ({
+  tableData,
+  selectedMenuItem,
+  tableFilterData,
+  onEditItem,
+  game_Summery,
+  dashSummery,
+  customerSummery,
+}) => {
   const tableComponent = useMemo(() => {
-    if (
-      props.tableData.userData.length > 0 &&
-      props.tableData.gameData.length > 0
-    ) {
+    if (tableData.userData.length > 0 && tableData.gameData.length > 0) {
       return (
         <TableComponent
-          tableData={props.tableData}
-          selectedMenuItem={props.selectedMenuItem}
-          onEditItem={props.onEditItem}
-          tableFilterData={props.tableFilterData}
+          tableData={tableData}
+          selectedMenuItem={selectedMenuItem}
+          onEditItem={onEditItem}
+          tableFilterData={tableFilterData}
         />
       );
     } else {
       return <></>;
     }
-  }, [props.tableData, props.selectedMenuItem, props.tableFilterData]);
+  }, [tableData, selectedMenuItem, tableFilterData]);
 
   const summeryCard = useMemo(() => {
     const summeryCardArray =
-      props.selectedMenuItem === "Games"
-        ? props.game_Summery
-        : props.selectedMenuItem === "Dashboard"
-        ? props.dashSummery
-        : props.customerSummery;
+      selectedMenuItem === "Games"
+        ? game_Summery
+        : selectedMenuItem === "Dashboard"
+        ? dashSummery
+        : customerSummery;
     return (
       <div className="sumery-section">
         {summeryCardArray.map((item) => {
@@ -42,24 +48,29 @@ const MainComponent = (props) => {
         })}
       </div>
     );
-  }, [
-    props.selectedMenuItem,
-    props.game_Summery,
-    props.dashSummery,
-    props.customerSummery,
-  ]);
+  }, [selectedMenuItem, game_Summery, dashSummery, customerSummery]);
 
   return (
     <div className="main-container">
-      <DashboardTitle title={props.selectedMenuItem} />
+      <DashboardTitle title={selectedMenuItem} />
       <SummeryBorder
-        summery={`${props.selectedMenuItem} Summery`}
+        summery={`${selectedMenuItem} Summery`}
         icon={<Summery />}
       />
       {summeryCard}
       {tableComponent}
     </div>
   );
+};
+
+MainComponent.prototype = {
+  tableData: PropTypes.object.isRequired,
+  selectedMenuItem: PropTypes.string.isRequired,
+  tableFilterData: PropTypes.object,
+  onEditItem: PropTypes.func,
+  game_Summery: PropTypes.object,
+  dashSummery: PropTypes.object,
+  customerSummery: PropTypes.object,
 };
 
 export default MainComponent;

@@ -1,23 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const MenuItem = (props) => {
+const MenuItem = ({ isActive, id, displayName, onClickHandler, icon }) => {
   return (
     <React.Fragment>
       <li
-        className={`menuite-container ${props.isActive ? "active" : ""}`}
-        onClick={() => props.onClickHandler(props.id)}
+        className={`menuite-container ${isActive ? "active" : ""}`}
+        onClick={() => onClickHandler(id)}
       >
         <div
           className="menu-icon"
-          style={{ color: props.isActive ? "#1a1c23" : "#707275" }}
+          style={{ color: isActive ? "#1a1c23" : "#707275" }}
         >
-          {props.icon}
+          {icon}
         </div>
-        <div className="menu-displayName">{props.displayName}</div>
+        <div className="menu-displayName">{displayName}</div>
       </li>
     </React.Fragment>
   );
+};
+
+MenuItem.propTypes = {
+  isActive: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+  displayName: PropTypes.string.isRequired,
+  onClickHandler: PropTypes.func.isRequired,
+  icon: PropTypes.element.isRequired,
 };
 
 export default MenuItem;
