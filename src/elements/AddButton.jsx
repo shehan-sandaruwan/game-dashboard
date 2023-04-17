@@ -1,14 +1,11 @@
 import React from "react";
 import { Plus } from "../constant";
 
-const AddButton = (props) => {
+const AddButton = ({ handleAddItem, selectedMenuItem }) => {
   return (
-    <button
-      className="add-btn"
-      onClick={() => props.handleAddItem(props.selectedMenuItem)}
-    >
+    <button className="add-btn" onClick={() => handleAddItem(selectedMenuItem)}>
       <div className="add-btn-content">
-        <span>{`Add ${props.selectedMenuItem}`}</span>
+        <span>{`Add ${selectedMenuItem}`}</span>
         <Plus />
       </div>
     </button>

@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
+import PropTypes from "prop-types";
 
 const FilterComponent = ({
   selectedMenuItem,
@@ -103,6 +104,16 @@ const FilterComponent = ({
       </div>
     </React.Fragment>
   );
+};
+
+FilterComponent.prototype = {
+  selectedMenuItem: PropTypes.string.isRequired,
+  dates: PropTypes.array,
+  category: PropTypes.array,
+  useAsyncDebounce: PropTypes.func,
+  value: PropTypes.object.isRequired,
+  setValue: PropTypes.func.isRequired,
+  filterTableData: PropTypes.func.isRequired,
 };
 
 export default FilterComponent;

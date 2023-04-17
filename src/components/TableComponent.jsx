@@ -15,8 +15,14 @@ import {
 import ActionComponent from "./ActionComponent";
 import Avatar from "../elements/Avatar";
 import FilterComponent from "./FilterComponent";
+import PropTypes from "prop-types";
 
-const TableComponent = (props) => {
+const TableComponent = ({
+  tableData,
+  selectedMenuItem,
+  onEditItem,
+  tableFilterData,
+}) => {
   const [showFilterOption, setShowFilterOption] = useState(false);
   const [value, setValue] = useState({
     name: [],
@@ -34,23 +40,23 @@ const TableComponent = (props) => {
 
   useEffect(() => {
     setLocalTableData({
-      userData: props.tableData.userData,
-      gameData: props.tableData.gameData,
+      userData: tableData.userData,
+      gameData: tableData.gameData,
     });
-  }, [props.tableData]);
+  }, [tableData]);
 
   const columns = React.useMemo(() => {
-    if (props.selectedMenuItem === "Clients") {
+    if (selectedMenuItem === "Clients") {
       return [...customerColumns];
-    } else if (props.selectedMenuItem === "Games") {
+    } else if (selectedMenuItem === "Games") {
       return [...gameColumns];
     } else {
       return [...dashboardColumns];
     }
-  }, [props.selectedMenuItem]);
+  }, [selectedMenuItem]);
 
   const data = React.useMemo(() => {
-    if (props.selectedMenuItem === "Clients") {
+    if (selectedMenuItem === "Clients") {
       const clientRows = localTableData.userData?.map((item) => {
         return {
           "cust-col1": (
@@ -65,13 +71,13 @@ const TableComponent = (props) => {
           }, ${item.address?.city || ""}, ${item.address?.zipcode || ""}`,
           "cust-col4": item.subscription,
           "cust-col5": (
-            <ActionComponent onEditItem={props.onEditItem} rowItem={item} />
+            <ActionComponent onEditItem={onEditItem} rowItem={item} />
           ),
         };
       });
 
       return clientRows;
-    } else if (props.selectedMenuItem === "Games") {
+    } else if (selectedMenuItem === "Games") {
       const gamesRow = localTableData.gameData?.map((item) => {
         return {
           "game-col1": (
@@ -83,12 +89,12 @@ const TableComponent = (props) => {
           "game-col2": item.genre,
           "game-col3": item.release_date,
           "game-col4": (
-            <ActionComponent onEditItem={props.onEditItem} rowItem={item} />
+            <ActionComponent onEditItem={onEditItem} rowItem={item} />
           ),
         };
       });
       return gamesRow;
-    } else if (props.selectedMenuItem === "Dashboard") {
+    } else if (selectedMenuItem === "Dashboard") {
       const gamesWithCustomer = localTableData.gameData?.filter(
         (item) => item.customer_id
       );
@@ -123,7 +129,7 @@ const TableComponent = (props) => {
       return dashBoardData;
     } else {
     }
-  }, [props.selectedMenuItem, localTableData]);
+  }, [selectedMenuItem, localTableData]);
 
   const {
     getTableProps,
@@ -202,8 +208,8 @@ const TableComponent = (props) => {
 
   const onClickFilterOptions = () => {
     setLocalTableData({
-      userData: props.tableData.userData,
-      gameData: props.tableData.gameData,
+      userData: tableData.userData,
+      gameData: tableData.gameData,
     });
     setShowFilterOption(!showFilterOption);
   };
@@ -219,10 +225,10 @@ const TableComponent = (props) => {
         </button>
         {showFilterOption && (
           <FilterComponent
-            selectedMenuItem={props.selectedMenuItem}
+            selectedMenuItem={selectedMenuItem}
             useAsyncDebounce={useAsyncDebounce}
-            dates={props.tableFilterData.dates}
-            category={props.tableFilterData.category}
+            dates={tableFilterData.dates}
+            category={tableFilterData.category}
             value={value}
             setValue={setValue}
             filterTableData={filterTableData}
@@ -283,6 +289,13 @@ const TableComponent = (props) => {
       </div>
     </React.Fragment>
   );
+};
+
+TableComponent.prototype = {
+  tableData: PropTypes.object.isRequired,
+  tableFilterData: PropTypes.object.isRequired,
+  onEditItem: PropTypes.func,
+  selectedMenuItem: PropTypes.string.isRequired,
 };
 
 export default TableComponent;

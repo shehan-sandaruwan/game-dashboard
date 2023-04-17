@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { Success, Error } from "../constant";
+import PropTypes from "prop-types";
 
 const AddGameFormComponent = ({
   action,
@@ -89,6 +90,16 @@ const AddGameFormComponent = ({
       </div>
     </form>
   );
+};
+
+AddGameFormComponent.prototype = {
+  progress: PropTypes.number,
+  error: PropTypes.string,
+  onFileUpload: PropTypes.func.isRequired,
+  action: PropTypes.string.isRequired,
+  newGameData: PropTypes.object,
+  onChangeHandler: PropTypes.func,
+  handleSubmitForm: PropTypes.func.isRequired,
 };
 
 export default AddGameFormComponent;
