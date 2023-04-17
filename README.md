@@ -17,3 +17,5 @@ You may also see any lint errors in the console.
 ### `Developer Note`
 
 Search component is a decorator component.\
+Filter, Sort pagination , add , edit and delete functionality has been implemented to the table data.\
+Firebase Storage has integrated to upload images.\
