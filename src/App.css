@@ -669,4 +669,7 @@ label {
   .filter-container {
     width: 75%;
   }
+  .modal-content {
+    width: 85%;
+  }
 }
